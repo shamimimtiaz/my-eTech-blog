@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const { Post, User } = require('../../models');
+const { Post, User, Comment } = require('../../models');
 const sequelize = require('../../config/connection');
+const withAuth = require('../../utils/auth');
 
 // get all users
 router.get('/', (req, res) => {
@@ -9,15 +10,15 @@ router.get('/', (req, res) => {
         attributes: ['id', 'title', 'created_at', 'post_content'],
       order: [['created_at', 'DESC']],
       include: [
-        // Comment model here -- attached username to comment
-        // {
-        //   model: Comment,
-        //   attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
-        //   include: {
-        //     model: User,
-        //     attributes: ['username']
-        //   }
-        //},
+//Comment model here -- attached username to comment
+        {
+          model: Comment,
+          attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+          include: {
+            model: User,
+            attributes: ['username']
+          }
+        },
         {
           model: User,
           attributes: ['username']
@@ -42,15 +43,15 @@ router.get('/', (req, res) => {
         {
           model: User,
           attributes: ['username']
+        },
+        {
+          model: Comment,
+          attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+          include: {
+            model: User,
+            attributes: ['username']
+          }
         }
-        // {
-        //   model: Comment,
-        //   attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
-        //   include: {
-        //     model: User,
-        //     attributes: ['username']
-        //   }
-        //}
       ]
     })
       .then(dbPostData => {
@@ -65,8 +66,9 @@ router.get('/', (req, res) => {
         res.status(500).json(err);
       });
   });
-//Create a post
-router.post('/', (req, res) => {
+  
+//Create a new post
+router.post('/', withAuth, (req, res) => {
   Post.create({
     title: req.body.title,
     post_content: req.body.post_content,
@@ -80,7 +82,7 @@ router.post('/', (req, res) => {
 });
 
 // Update a post
-router.put('/:id', (req, res) => {
+router.put('/:id', withAuth, (req, res) => {
   Post.update({
       title: req.body.title,
       post_content: req.body.post_content
@@ -105,7 +107,7 @@ router.put('/:id', (req, res) => {
 
 //delete a post
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', withAuth, (req, res) => {
   Post.destroy({
     where: {
       id: req.params.id
