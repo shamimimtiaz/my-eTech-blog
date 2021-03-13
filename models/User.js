@@ -1,7 +1,7 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-//// use bcrypt for password hashing
+// use bcrypt for password hashing
 const bcrypt = require('bcrypt');
 
 // create our User model
@@ -57,7 +57,7 @@ User.init(
             return updatedUserData;
             }
         },
-      
+    
         sequelize,
         timestamps: false,
         freezeTableName: true,
