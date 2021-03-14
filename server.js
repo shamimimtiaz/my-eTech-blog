@@ -39,7 +39,7 @@ const app = express();
 // Define the port for the server
 const PORT = process.env.PORT || 3001;
 
-app.use (express.session)
+//app.use (express.session)
 // Give the server a path to the public directory for static files
 app.use(express.static(path.join(__dirname, 'public')));
 
