@@ -1,6 +1,5 @@
 # my-eTech-blog
 
-
 # DESCRIPTION
 This project built with mysql database and CMS-style Blog built using Model View Controller (MVC) paradigm
 to create a blog-style website where users can create an account, edit their information, make posts, edit posts, and 
@@ -61,6 +60,7 @@ If you have any questions, please e-mail me at km_si@ymail.com.
 
 
 Copyright Shamim Imtiaz. All Rights Reserved.
+
 
 
 
