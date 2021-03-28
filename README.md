@@ -6,11 +6,12 @@ to create a blog-style website where users can create an account, edit their inf
 comment on other user's posts.
 
 #INSTALLATION
-Add a .env file to the root of the app with the following details 
+Add a .env file to the root of the app with the following details
+``` 
 DB_NAME='my_etech_blog' 
 DB_USER='root' 
 DB_PW='password'
-
+```
 
 #USAGE
 
